@@ -9,7 +9,10 @@ function App() {
     <div>
       <Header />
 
-      <Layer/>
+      <div className="Layers">
+        <Layer />
+        <Layer />
+      </div>
     </div>
   );
 }

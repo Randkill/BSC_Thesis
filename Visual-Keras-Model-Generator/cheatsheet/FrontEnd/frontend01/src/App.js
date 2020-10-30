@@ -28,6 +28,10 @@ class App extends Component {
     this.setState({layers: tempLayers})
   }
 
+  submitButton = () => {
+    console.log('State is ',this.state)
+  }
+
   render() {
     let Layers = null
     
@@ -54,6 +58,7 @@ class App extends Component {
           {Layers}
           <button className="Button" onClick={this.addLayer}>+</button>
         </div>
+        <button onClick={this.submitButton}>submit</button>
       </div>
     );
   }

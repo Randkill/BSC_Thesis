@@ -15,7 +15,7 @@ class App extends Component {
 
     const tempLayers = [...this.state.layers]
     const layerId = Date.now()
-    tempLayers.push({id: layerId, neurons: '', activationFunction: ''});
+    tempLayers.push({id: layerId, neurons: '', activationFunction: 'relu'});
     this.setState({layers: tempLayers})
     //console.log('New Layers count:', tempLayers[0])
     console.log(this.state)

@@ -12,7 +12,7 @@ const Layer = (props) => {
     <div className="Layer">
       <p className="LayerTitle">Layer {props.layerNumber+1}</p>
       <p>Number of Neurons</p>
-      <input />
+      <input onChange={props.change}/>
       <p>Activation Function</p>
       <select onChange={selectHandler}>
         <option value="relu">relu</option>

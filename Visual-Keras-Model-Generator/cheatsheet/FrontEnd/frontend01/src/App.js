@@ -15,7 +15,7 @@ class App extends Component {
 
     const tempLayers = [...this.state.layers]
     const layerId = Date.now()
-    tempLayers.push({info: '', id: layerId});
+    tempLayers.push({id: layerId, neurons: ''});
     this.setState({layers: tempLayers})
     //console.log('New Layers count:', tempLayers[0])
     console.log(this.state)
@@ -28,8 +28,21 @@ class App extends Component {
     this.setState({layers: tempLayers})
   }
 
+  neuronChangeHandler = (event, layerId) => {
+    const layerIndex = this.state.layers.findIndex(layer => {
+      return (layer.id === layerId)
+    })
+    const tempLayers = [...this.state.layers]
+
+    const newNeurons = event.target.value
+    tempLayers[layerIndex].neurons = newNeurons
+
+    this.setState({layers: tempLayers})
+    console.log(this.state)
+  }
+
   submitButton = () => {
-    console.log('State is ',this.state)
+    
   }
 
   render() {
@@ -42,6 +55,7 @@ class App extends Component {
             return(
               <Layer layerNumber={index}
               delete={() => this.deleteLayer(index)}
+              change={(event) => this.neuronChangeHandler(event, layer.id)}
               key={layer.id}
               />
             )

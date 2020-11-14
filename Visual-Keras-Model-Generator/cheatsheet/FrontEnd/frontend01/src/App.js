@@ -4,80 +4,120 @@ import "./App.css";
 
 import Header from "./Components/Header/Header.js";
 import Layer from "./Components/Layer/Layer.js";
-
+import ModelConfig from "./Components/ModelConfiguration/Configuration.js";
 class App extends Component {
   state = {
-    layers: []
-  }
+    layers: [],
+    ModelConfig: {
+      optimizer: "SGD",
+      lossFunction: "mean_squared_error",
+      metrics: "accuracy",
+    },
+  };
 
   addLayer = () => {
-    console.log('Button Clicked !')
+    console.log("Button Clicked !");
 
-    const tempLayers = [...this.state.layers]
-    const layerId = Date.now()
-    tempLayers.push({id: layerId, neurons: '', activationFunction: 'relu'});
-    this.setState({layers: tempLayers})
+    const tempLayers = [...this.state.layers];
+    const layerId = Date.now();
+    tempLayers.push({ id: layerId, neurons: "", activationFunction: "relu" });
+    this.setState({ layers: tempLayers });
     //console.log('New Layers count:', tempLayers[0])
-    console.log(this.state)
-  }
+    console.log(this.state);
+  };
 
   deleteLayer = (index) => {
-    const tempLayers = [...this.state.layers]
-    tempLayers.splice(index, 1)
+    const tempLayers = [...this.state.layers];
+    tempLayers.splice(index, 1);
 
-    this.setState({layers: tempLayers})
-  }
+    this.setState({ layers: tempLayers });
+  };
 
   neuronChangeHandler = (event, layerId) => {
-    const layerIndex = this.state.layers.findIndex(layer => {
-      return (layer.id === layerId)
-    })
-    const tempLayers = [...this.state.layers]
+    const layerIndex = this.state.layers.findIndex((layer) => {
+      return layer.id === layerId;
+    });
+    const tempLayers = [...this.state.layers];
 
-    const newNeurons = event.target.value
-    tempLayers[layerIndex].neurons = newNeurons
+    const newNeurons = event.target.value;
+    tempLayers[layerIndex].neurons = newNeurons;
 
-    this.setState({layers: tempLayers})
-    console.log(this.state)
-  }
+    this.setState({ layers: tempLayers });
+    console.log(this.state);
+  };
 
   activationFunctionHandler = (event, layerId) => {
-    const layerIndex = this.state.layers.findIndex(layer => {
-      return (layer.id === layerId)
+    const layerIndex = this.state.layers.findIndex((layer) => {
+      return layer.id === layerId;
+    });
+    const tempLayers = [...this.state.layers];
+
+    const newActivationFunction = event.target.value;
+    console.log("Activation Fucntion:", event.target.value);
+    tempLayers[layerIndex].activationFunction = newActivationFunction;
+
+    this.setState({ layers: tempLayers });
+    console.log(this.state);
+  };
+
+  //Model Conifguration Change Handlers
+
+  optimizerChange = (event) => {
+    const tempModelConfiguration = { ...this.state.ModelConfig };
+
+    console.log('New Optimizer : ', event.target.value)
+    tempModelConfiguration.optimizer= event.target.value;
+    this.setState({
+      ModelConfig: tempModelConfiguration
     })
-    const tempLayers = [...this.state.layers]
+  };
 
-    const newActivationFunction = event.target.value
-    console.log('Activation Fucntion:',event.target.value)
-    tempLayers[layerIndex].activationFunction = newActivationFunction
+  lossFunctionChange = (event) => {
+    const tempModelConfiguration = { ...this.state.ModelConfig };
 
-    this.setState({layers: tempLayers})
-    console.log(this.state)
-  }
+    console.log('New Loss Function : ', event.target.value)
+    tempModelConfiguration.lossFunction= event.target.value;
+    this.setState({
+      ModelConfig: tempModelConfiguration
+    })
+  };
 
-  submitButton = () => {
-    
-  }
+
+  metricsChange = (event) => {
+    const tempModelConfiguration = { ...this.state.ModelConfig };
+
+    console.log('New Metrics : ', event.target.value)
+    tempModelConfiguration.metrics= event.target.value;
+    this.setState({
+      ModelConfig: tempModelConfiguration
+    })
+  };
+
+
+  submitButton = () => {};
 
   render() {
-    let Layers = null
-    
+    let Layers = null;
+
     Layers = (
       <div className="Layers">
-        {
-          this.state.layers.map((layer, index) => {
-            return(
-              <Layer layerNumber={index}
+        {this.state.layers.map((layer, index) => {
+          return (
+            <Layer
+              layerNumber={index}
               delete={() => this.deleteLayer(index)}
-              neuronChange={(event) => this.neuronChangeHandler(event, layer.id)}
-              activationFunctionChange={(event) => this.activationFunctionHandler(event, layer.id)}
+              neuronChange={(event) =>
+                this.neuronChangeHandler(event, layer.id)
+              }
+              activationFunctionChange={(event) =>
+                this.activationFunctionHandler(event, layer.id)
+              }
               key={layer.id}
-              />
-            )
-          })
-        }
+            />
+          );
+        })}
       </div>
-    )
+    );
 
     return (
       <div>
@@ -85,9 +125,20 @@ class App extends Component {
 
         <div className="Layers">
           {Layers}
-          <button className="Button" onClick={this.addLayer}>+</button>
+          <button className="Button" onClick={this.addLayer}>
+            +
+          </button>
         </div>
-        <button onClick={this.submitButton}>submit</button>
+        <br />
+        <ModelConfig 
+        lossFunctionChange={this.lossFunctionChange}
+        metricsChange={this.metricsChange}
+        optimizerChange={this.optimizerChange}
+        />
+        <br />
+        <button onClick={this.submitButton} className="Submit">
+          submit
+        </button>
       </div>
     );
   }

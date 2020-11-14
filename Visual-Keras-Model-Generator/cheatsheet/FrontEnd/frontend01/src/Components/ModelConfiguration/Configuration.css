@@ -5,7 +5,7 @@
     margin: 15px;
     border-radius: 20px;
     position: relative;
-    width: 200px;
+    width: 250px;
 }
 
 .ComponentTitle {
@@ -16,7 +16,14 @@
     text-align: center;
     position: absolute;
     left: -2px;
-    width: 224px;
+    width: 275px;
     height: 20px;
     top: -20px;
+}
+
+.selectModelConfiguration {
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
 }

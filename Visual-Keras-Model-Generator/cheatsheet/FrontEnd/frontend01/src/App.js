@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import axios from "axios";
 
 import Header from "./Components/Header/Header.js";
 import Layer from "./Components/Layer/Layer.js";
@@ -13,6 +13,68 @@ class App extends Component {
       lossFunction: "mean_squared_error",
       metrics: "accuracy",
     },
+  };
+
+  componentDidMount() {
+    // Simple POST request with a JSON body using axios
+    const article = { title: "React POST Request Example" };
+    axios
+      .post("http://localhost:5001/", article)
+      .then((response) => this.setState({ articleId: response.data.id }));
+  }
+
+  submitButton = (e) => {
+    // let data = this.state
+    // console.log(data)
+    // // create a new XMLHttpRequest
+    // var xhr = new XMLHttpRequest()
+
+    // // get a callback when the server responds
+    // xhr.addEventListener('load', () => {
+    //   // update the state of the component with the result here
+    //   console.log(xhr.responseText)
+    // })
+    // // open the request with the verb and the url
+    // xhr.open('POST', 'http://localhost:8000/')
+    // // send the request
+    // xhr.send(JSON.stringify(data))
+    // xhr.onload = function() {
+    //   alert(xhr.response);
+    //  };
+
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: {
+    //     "Access-Control-Allow-Origin": "*",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ "title": "React POST Request Example" }),
+    // };
+    // fetch("http://localhost:8000/", requestOptions).then((response) => {
+    //   console.log(response);
+    // });
+    console.log(this.state)
+
+
+    console.log("Hi");
+
+    //e.prevenDefault()
+    let data = this.state
+    console.log('Want to post this:', data)
+    var instance = axios.create();
+    instance.defaults.headers.common['Content-Type'] = 'application/json';
+
+    instance.post('http://localhost:8000/post', data, {
+        headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log(response)
+    })
+    .catch(error => {
+      console.log(error)
+    })
   };
 
   addLayer = () => {
@@ -65,36 +127,32 @@ class App extends Component {
   optimizerChange = (event) => {
     const tempModelConfiguration = { ...this.state.ModelConfig };
 
-    console.log('New Optimizer : ', event.target.value)
-    tempModelConfiguration.optimizer= event.target.value;
+    console.log("New Optimizer : ", event.target.value);
+    tempModelConfiguration.optimizer = event.target.value;
     this.setState({
-      ModelConfig: tempModelConfiguration
-    })
+      ModelConfig: tempModelConfiguration,
+    });
   };
 
   lossFunctionChange = (event) => {
     const tempModelConfiguration = { ...this.state.ModelConfig };
 
-    console.log('New Loss Function : ', event.target.value)
-    tempModelConfiguration.lossFunction= event.target.value;
+    console.log("New Loss Function : ", event.target.value);
+    tempModelConfiguration.lossFunction = event.target.value;
     this.setState({
-      ModelConfig: tempModelConfiguration
-    })
+      ModelConfig: tempModelConfiguration,
+    });
   };
-
 
   metricsChange = (event) => {
     const tempModelConfiguration = { ...this.state.ModelConfig };
 
-    console.log('New Metrics : ', event.target.value)
-    tempModelConfiguration.metrics= event.target.value;
+    console.log("New Metrics : ", event.target.value);
+    tempModelConfiguration.metrics = event.target.value;
     this.setState({
-      ModelConfig: tempModelConfiguration
-    })
+      ModelConfig: tempModelConfiguration,
+    });
   };
-
-
-  submitButton = () => {};
 
   render() {
     let Layers = null;
@@ -130,10 +188,10 @@ class App extends Component {
           </button>
         </div>
         <br />
-        <ModelConfig 
-        lossFunctionChange={this.lossFunctionChange}
-        metricsChange={this.metricsChange}
-        optimizerChange={this.optimizerChange}
+        <ModelConfig
+          lossFunctionChange={this.lossFunctionChange}
+          metricsChange={this.metricsChange}
+          optimizerChange={this.optimizerChange}
         />
         <br />
         <button onClick={this.submitButton} className="Submit">

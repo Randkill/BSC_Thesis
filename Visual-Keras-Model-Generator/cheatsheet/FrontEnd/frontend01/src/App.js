@@ -75,6 +75,11 @@ class App extends Component {
           .get("http://localhost:8001/get")
           .then((response) => {
             console.log(response);
+            this.setState({
+              finalModel: response.data
+            })
+
+            alert(this.state.finalModel)
           })
           .catch((error) => {
             console.log(error);

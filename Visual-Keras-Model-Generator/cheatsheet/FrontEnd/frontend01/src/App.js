@@ -53,28 +53,36 @@ class App extends Component {
     // fetch("http://localhost:8000/", requestOptions).then((response) => {
     //   console.log(response);
     // });
-    console.log(this.state)
-
+    console.log(this.state);
 
     console.log("Hi");
 
     //e.prevenDefault()
-    let data = this.state
-    console.log('Want to post this:', data)
+    let data = this.state;
+    console.log("Want to post this:", data);
     var instance = axios.create();
-    instance.defaults.headers.common['Content-Type'] = 'application/json';
+    instance.defaults.headers.common["Content-Type"] = "application/json";
 
-    instance.post('http://localhost:8000/post', data, {
+    instance
+      .post("http://localhost:8001/post", data, {
         headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log(response)
-    })
-    .catch(error => {
-      console.log(error)
-    })
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        instance
+          .get("http://localhost:8001/get")
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   addLayer = () => {

@@ -80,13 +80,23 @@ const modelHandling = () => {
   var model = "model.Sequential()";
 
   for (i = 0; i < data.layers.length; i++) {
+   if(i==0){
     model = model.concat(
       "\nmodel.add(Dense(",
       data.layers[i].neurons,
       ', activation="',
       data.layers[i].activationFunction,
-      '"))'
-    );
+      '", input_shape=(',
+      data.inputSize, ')))')
+   }else {
+    model = model.concat(
+      "\nmodel.add(Dense(",
+      data.layers[i].neurons,
+      ', activation="',
+      data.layers[i].activationFunction,
+      '"))')
+   }
+
     //console.log("hi");
   }
   model = model.concat(

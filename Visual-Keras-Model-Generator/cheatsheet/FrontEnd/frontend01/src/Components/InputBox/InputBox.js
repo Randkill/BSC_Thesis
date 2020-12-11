@@ -2,11 +2,12 @@ import React from 'react'
 
 import './InputBox.css'
 
-const InputBox = () => {
+const InputBox = (props) => {
     return(
-        <div className="input">
-            <p>Enter the input size:</p>
-            <input></input>
+        <div className="inputBoxComponent">
+            <p className="InputBoxTitle">Network Input</p>
+            <p>Enter the input shape:</p>
+            <input onChange={props.inputChange} className="input"/>
         </div>
     )
 }

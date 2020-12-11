@@ -5,6 +5,8 @@ import axios from "axios";
 import Header from "./Components/Header/Header.js";
 import Layer from "./Components/Layer/Layer.js";
 import ModelConfig from "./Components/ModelConfiguration/Configuration.js";
+import Model from './Components/ModelBox/Model';
+import InputBox from './Components/InputBox/InputBox.js'
 class App extends Component {
   state = {
     layers: [],
@@ -13,46 +15,11 @@ class App extends Component {
       lossFunction: "mean_squared_error",
       metrics: "accuracy",
     },
+    finalModel: ""
   };
 
-  componentDidMount() {
-    // Simple POST request with a JSON body using axios
-    const article = { title: "React POST Request Example" };
-    axios
-      .post("http://localhost:5001/", article)
-      .then((response) => this.setState({ articleId: response.data.id }));
-  }
 
   submitButton = (e) => {
-    // let data = this.state
-    // console.log(data)
-    // // create a new XMLHttpRequest
-    // var xhr = new XMLHttpRequest()
-
-    // // get a callback when the server responds
-    // xhr.addEventListener('load', () => {
-    //   // update the state of the component with the result here
-    //   console.log(xhr.responseText)
-    // })
-    // // open the request with the verb and the url
-    // xhr.open('POST', 'http://localhost:8000/')
-    // // send the request
-    // xhr.send(JSON.stringify(data))
-    // xhr.onload = function() {
-    //   alert(xhr.response);
-    //  };
-
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ "title": "React POST Request Example" }),
-    // };
-    // fetch("http://localhost:8000/", requestOptions).then((response) => {
-    //   console.log(response);
-    // });
     console.log(this.state);
 
     console.log("Hi");
@@ -167,6 +134,12 @@ class App extends Component {
     });
   };
 
+  inputChangeHandler = (event) => {
+    const inputSize = event.target.value;
+    this.setState({ inputSize: inputSize });
+    console.log(this.state);
+  };
+
   render() {
     let Layers = null;
 
@@ -193,7 +166,9 @@ class App extends Component {
     return (
       <div>
         <Header />
-
+        <InputBox inputChange={(event)=>{
+          this.inputChangeHandler(event)
+        }}/>
         <div className="Layers">
           {Layers}
           <button className="Button" onClick={this.addLayer}>
@@ -210,6 +185,7 @@ class App extends Component {
         <button onClick={this.submitButton} className="Submit">
           submit
         </button>
+        <Model data={this.state.finalModel}/>
       </div>
     );
   }

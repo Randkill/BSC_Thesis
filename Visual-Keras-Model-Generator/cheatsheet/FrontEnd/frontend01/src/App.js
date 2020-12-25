@@ -5,8 +5,8 @@ import axios from "axios";
 import Header from "./Components/Header/Header.js";
 import Layer from "./Components/Layer/Layer.js";
 import ModelConfig from "./Components/ModelConfiguration/Configuration.js";
-import Model from './Components/ModelBox/Model';
-import InputBox from './Components/InputBox/InputBox.js'
+import Model from "./Components/ModelBox/Model";
+import InputBox from "./Components/InputBox/InputBox.js";
 class App extends Component {
   state = {
     layers: [],
@@ -15,9 +15,8 @@ class App extends Component {
       lossFunction: "mean_squared_error",
       metrics: "accuracy",
     },
-    finalModel: ""
+    finalModel: "",
   };
-
 
   submitButton = (e) => {
     console.log(this.state);
@@ -42,11 +41,14 @@ class App extends Component {
           .get("http://localhost:8001/get")
           .then((response) => {
             console.log(response);
-            this.setState({
-              finalModel: response.data
-            })
 
-            alert(this.state.finalModel)
+            let res = response
+            let finalData = res.data.replace("model", "\nmodel")
+            this.setState({
+              finalModel: finalData,
+            });
+
+            alert(this.state.finalModel);
           })
           .catch((error) => {
             console.log(error);
@@ -164,11 +166,8 @@ class App extends Component {
     );
 
     return (
-      <div>
+      <div className="App">
         <Header />
-        <InputBox inputChange={(event)=>{
-          this.inputChangeHandler(event)
-        }}/>
         <div className="Layers">
           {Layers}
           <button className="Button" onClick={this.addLayer}>
@@ -176,16 +175,23 @@ class App extends Component {
           </button>
         </div>
         <br />
+        <div className="InputANDConfig">
         <ModelConfig
           lossFunctionChange={this.lossFunctionChange}
           metricsChange={this.metricsChange}
           optimizerChange={this.optimizerChange}
         />
+        <InputBox
+            inputChange={(event) => {
+              this.inputChangeHandler(event);
+            }}
+          />
+        </div>
         <br />
         <button onClick={this.submitButton} className="Submit">
           submit
         </button>
-        <Model data={this.state.finalModel}/>
+        <Model data={this.state.finalModel} className="Model"/>
       </div>
     );
   }

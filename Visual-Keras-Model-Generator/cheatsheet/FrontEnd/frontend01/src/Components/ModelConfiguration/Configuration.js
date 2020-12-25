@@ -2,12 +2,12 @@ import React from "react";
 
 import "./Configuration.css";
 
-const Configuration = () => {
+const Configuration = (props) => {
   return (
     <div className="SuperComponent">
     <p className="ComponentTitle">Model Configuration</p>
       <p>Optimizer</p>
-      <select className="selectModelConfiguration">
+      <select className="selectModelConfiguration" onChange={props.optimizerChange}>
           <option value="SGD">SGD</option>
           <option value="RMSprop">RMSprop</option>
           <option value="Adam">Adam</option>
@@ -18,7 +18,7 @@ const Configuration = () => {
           <option value="Ftrl">Ftrl</option>
       </select>
       <p>Loss Function</p>
-      <select className="selectModelConfiguration">
+      <select className="selectModelConfiguration" onChange={props.lossFunctionChange}>
           <option value="mean_squared_error">Mean Squared Error</option>
           <option value="mean_absolute_error">Mean Absolute Error</option>
           <option value="mean_absolute_percentage_error">Mean Absolute Perccentage Error</option>
@@ -26,7 +26,7 @@ const Configuration = () => {
           <option value="cosine_similarity">Cosine Similarity</option>
       </select>
       <p>Metrics</p>
-      <select className="selectModelConfiguration">
+      <select className="selectModelConfiguration" onChange={props.metricsChange}>
           <option value="accuracy">Accuracy</option>
           <option value="binary_accuracy">Binary Accuracy</option>
           <option value="categorical_accuracy">Categorical Accuracy</option>

@@ -1,0 +1,8 @@
+.model {
+    border: black solid;
+    position: absolute;
+    top: 650px;
+    width: 500px;
+    white-space: pre-line;
+    margin-left: 15px;
+}

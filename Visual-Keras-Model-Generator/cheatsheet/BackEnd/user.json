@@ -1,0 +1,1 @@
+{"layers":[{"id":1606407664299,"neurons":"2","activationFunction":"relu"}],"ModelConfig":{"optimizer":"SGD","lossFunction":"mean_squared_error","metrics":"accuracy"}}

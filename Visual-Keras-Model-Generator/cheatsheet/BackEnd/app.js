@@ -26,8 +26,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
 app.post("/post", function (req, res, next) {
   //res.setHeader('Access-Control-Allow-Origin');
 
@@ -44,23 +42,20 @@ app.post("/post", function (req, res, next) {
 
   // const data = modelHandling()
   // console.log('Data to be sent:', data)
-  res.end('Post Finished!')
-  console.log('POST REQUEST FINISHED !')
-
+  res.end("Post Finished!");
+  console.log("POST REQUEST FINISHED !");
 });
 app.get("/get", function (req, res, next) {
   //pythonHandler();
   console.log("GET request started");
 
-  var data = modelHandling()
-  console.log(data)
-  console.log('GET request Finished!')
-  res.end(data)
-
+  var data = modelHandling();
+  console.log(data);
+  console.log("GET request Finished!");
+  res.end(data);
 });
 
 app.listen(8001, "localhost");
-
 
 const pythonHandler = () => {
   const { spawn } = require("child_process");
@@ -68,8 +63,8 @@ const pythonHandler = () => {
 
   pyProg.stdout.on("data", function (data) {
     console.log(data.toString());
-     
-    return data.toString()
+
+    return data.toString();
   });
 };
 
@@ -80,22 +75,25 @@ const modelHandling = () => {
   var model = "model.Sequential()";
 
   for (i = 0; i < data.layers.length; i++) {
-   if(i==0){
-    model = model.concat(
-      "\nmodel.add(Dense(",
-      data.layers[i].neurons,
-      ', activation="',
-      data.layers[i].activationFunction,
-      '", input_shape=(',
-      data.inputSize, ')))')
-   }else {
-    model = model.concat(
-      "\nmodel.add(Dense(",
-      data.layers[i].neurons,
-      ', activation="',
-      data.layers[i].activationFunction,
-      '"))')
-   }
+    if (i == 0) {
+      model = model.concat(
+        "\nmodel.add(Dense(",
+        data.layers[i].neurons,
+        ', activation="',
+        data.layers[i].activationFunction,
+        '", input_shape=(',
+        data.inputSize,
+        ")))"
+      );
+    } else {
+      model = model.concat(
+        "\nmodel.add(Dense(",
+        data.layers[i].neurons,
+        ', activation="',
+        data.layers[i].activationFunction,
+        '"))'
+      );
+    }
 
     //console.log("hi");
   }
@@ -109,6 +107,6 @@ const modelHandling = () => {
     '"])'
   );
 
-  console.log(model)
+  console.log(model);
   return model;
 };

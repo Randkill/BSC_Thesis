@@ -1,0 +1,4 @@
+model.sequential()
+model.add(Dense(, activation="relu"))
+model.add(Dense(, activation="relu"))
+model.compile(loss="mean_squared_error", optimizer="SGD", metrics=["accuracy"])

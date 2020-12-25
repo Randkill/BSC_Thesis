@@ -1,0 +1,1 @@
+{"layers":[{"id":1608633812360,"neurons":"2","activationFunction":"sigmoid"},{"id":1608633818423,"neurons":"3","activationFunction":"relu"},{"id":1608633819688,"neurons":"5","activationFunction":"softmax"}],"ModelConfig":{"optimizer":"SGD","lossFunction":"mean_squared_error","metrics":"accuracy"},"finalModel":"","inputSize":"10,1"}
